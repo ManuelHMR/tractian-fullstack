@@ -1,17 +1,14 @@
 import { MongoClient } from "mongodb";
-import dotenv from "dotenv";
-dotenv.config();
+import "dotenv/config";
 
-let database: any;
-const mongoClient = new MongoClient(process.env.MONGO_URI);
-
-async () => {
+export async function connectdb() {
+    let database: any;
     try{
+        const mongoClient = new MongoClient( process.env.MONGO_URI as string);
         await mongoClient.connect();
         database = mongoClient.db('tractian');
     } catch (err) {
         console.log("Erro ao conectar no MongoDB");
-    }
-}
-
-export default database;
+    };
+    return database
+};

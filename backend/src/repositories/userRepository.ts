@@ -1,27 +1,42 @@
-import database from "../database";
+import { connectdb } from "../database";
 
-const userCollection = database.collection("userCollection");
-
-export async function createUser( companyId : number, name : string ) {
-    const user = { name, companyId }
-    return await userCollection.insert(user)
+export async function createUserRepository(  name : string, companyId : number ) {
+    const user = { name, companyId };
+    const database = await connectdb();
+    const userCollection = database.collection("userCollection");
+    return await userCollection.insertOne(user);
 };
 
-export async function readUser( userId : number ) {
+export async function readUserRepository( userId : number ) {
+    const database = await connectdb();
+    const userCollection = database.collection("userCollection");
     const user = await userCollection.find({userId});
     if(!user){
         throw{
             status: 404,
             message: "User not found!"
-        }
+        }; 
     };
-    return user
+    return user;
 }; 
 
-export async function updateUser( userId : number ) {
-    
-};
+export async function readUsersByCompanyRepository( companyId : number ) {
+    const database = await connectdb();
+    const userCollection = database.collection("userCollection");
+    const users = await userCollection.find({companyId}).toArray();
+    if(users._eventsCount === 0){
+        throw{
+            status: 404,
+            message: "Users not found!"
+        }; 
+    };
+    return users;
+}; 
 
-export async function deleteUser( userId : number ) {
-    await userCollection.delete({userId}); 
-};
+// export async function updateUserRepository( userId : number ) {
+    
+// };
+
+// export async function deleteUserRepository( userId : number ) {
+//     await userCollection.delete({userId}); 
+// };
