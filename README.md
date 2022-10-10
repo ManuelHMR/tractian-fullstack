@@ -1,7 +1,7 @@
 # tractian-fullstack
 
 Deploy
-- Frontend was deployed at Vercel
+- Frontend was deployed at Vercel - https://tractian-fullstack.vercel.app/
 - API was deployed at heroku - https://tractian-fullstack.herokuapp.com/
 - Database was deployed at Mongo Atlas.
 
