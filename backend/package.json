@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "tsc && node build/server.js",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:integration": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -i -- --coverage --testPathPattern=tests/integration"
