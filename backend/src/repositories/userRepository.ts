@@ -42,9 +42,3 @@ export async function deleteUserRepository( userId : number ) {
     const userCollection = database.collection("userCollection");
     await userCollection.updateOne({userId}, {$set:{status: "deleted"}}); 
 };
-
-export async function generateUserId() {
-    const database = await connectdb();
-    const userCollection = database.collection("userCollection");
-    return await userCollection.count();
-};
