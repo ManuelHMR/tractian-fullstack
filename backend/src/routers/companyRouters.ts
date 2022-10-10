@@ -1,14 +1,14 @@
 import { Router } from "express";
 
-import { createCompanyController } from "../controllers/companyControllers";
+import { createCompanyController, deleteCompanyController, readCompanyController, updateCompanyController } from "../controllers/companyControllers";
 import { validateSchema } from "../middlewares/validateSchema";
-import { createCompanySchema } from "../schemas/companySchemas";
+import { createCompanySchema, deleteCompanySchema, updateCompanySchema } from "../schemas/companySchemas";
 
 const companyRouters = Router();
 
 companyRouters.post("/company", validateSchema(createCompanySchema), createCompanyController);
-// companyRouters.get();
-// companyRouters.put();
-// companyRouters.delete();
+companyRouters.get("/company", readCompanyController);
+companyRouters.put("/company", validateSchema(updateCompanySchema), updateCompanyController);
+companyRouters.delete("/company", validateSchema(deleteCompanySchema), deleteCompanyController);
 
 export default companyRouters;

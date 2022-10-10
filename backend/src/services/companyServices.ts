@@ -1,7 +1,19 @@
-import { createCompanyRepository } from "../repositories/companyRepository";
+import { createCompanyRepository, deleteCompanyRepository, readCompaniesRepository, updateCompanyRepository } from "../repositories/companyRepository";
 import { generateId } from "../utils/generateId";
 
-export async function createCompanyService( user : { name: string } ) {
+export async function createCompanyService( company : { name: string } ) {
     const companyId = await generateId("companyCollection"); 
-    return await createCompanyRepository(user.name, companyId);
+    return await createCompanyRepository(company.name, companyId);
+};
+
+export async function readCompaniesService() {
+    return await readCompaniesRepository();
+};
+
+export async function updateCompanyService( company : { name: string, companyId: number }) {
+    return await updateCompanyRepository(company.name, company.companyId);
+};
+
+export async function deleteCompanyService ({companyId} : { companyId : number }) {
+    return await deleteCompanyRepository(companyId);
 };
