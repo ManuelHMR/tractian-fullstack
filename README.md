@@ -1,6 +1,12 @@
 # tractian-fullstack
 
+Deploy
+- Frontend was deployed at Vercel
+- API was deployed at heroku - https://tractian-fullstack.herokuapp.com/
+- Database was deployed at Mongo Atlas.
+
 Backend
+
 - Installation:
   1) Clone this repository,
   2) Run "npm i" to install all modules.
