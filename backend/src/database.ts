@@ -6,7 +6,7 @@ export async function connectdb() {
     try{
         const mongoClient = new MongoClient( process.env.MONGO_URI as string);
         await mongoClient.connect();
-        database = mongoClient.db('tractian');
+        database = mongoClient.db(process.env.DB);
     } catch (err) {
         console.log("Erro ao conectar no MongoDB");
     };

@@ -1,7 +1,8 @@
-import { createUserRepository, readUserRepository, readUsersByCompanyRepository } from "../repositories/userRepository";
+import { createUserRepository, deleteUserRepository, generateUserId, readUserRepository, readUsersByCompanyRepository } from "../repositories/userRepository";
 
 export async function createUserService( user : { name: string, companyId : number } ) {
-    return await createUserRepository( user.name, user.companyId);
+    const userId = await generateUserId();
+    return await createUserRepository( user.name, user.companyId, userId );
 };
 
 export async function readUserService( userId : number ) {
@@ -10,4 +11,8 @@ export async function readUserService( userId : number ) {
 
 export async function readUserByCompanyService( { companyId } : { companyId : number } ) {
     return await readUsersByCompanyRepository( companyId );
+};
+
+export async function deleteUserService( { userId } : { userId : number} ) {
+    return await deleteUserRepository(userId);
 };
