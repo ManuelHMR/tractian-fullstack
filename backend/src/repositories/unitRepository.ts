@@ -7,6 +7,13 @@ export async function createUnitRepository ( name: string, companyId: number, un
     return await unitCollection.insertOne(data);
 };
 
+export async function readUnitByIdRepository( unitId : number ){
+    const database = await connectdb();
+    const unitCollection = database.collection("unitCollection");
+    return await unitCollection.findOne({unitId})
+};
+
+
 export async function readUnitsByCompanyRepository ( companyId: number ) {
     const database = await connectdb();
     const unitCollection = database.collection("unitCollection");

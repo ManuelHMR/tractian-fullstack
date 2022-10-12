@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
 import Header from "../../assets/components/Header";
 import UnitsList from "../../assets/components/UnitsList";
-import { getUnits } from "../../assets/functions";
+import { getById, getUnits } from "../../assets/functions";
 import { API_URL } from "../../assets/URL";
 import Button from "../../assets/components/Button";
 
@@ -13,7 +13,14 @@ export default function UnitsPage(){
 
     let { companyId } = useParams();
 
+    const navigate = useNavigate();
+
     const [ unitsListState, setUnitsListState ] = useState([]);
+    const [company, setCompany ] = useState();
+    const [newCompany, setNewCompany] = useState({
+        name: "",
+        companyId: Number(companyId)
+    })
     const [ buttonLoading, setButtonLoading ] = useState(false);
     const [ newUnit, setNewUnit ] = useState({
         name: "",
@@ -22,10 +29,11 @@ export default function UnitsPage(){
 
     useEffect(() => {
         getUnits(setUnitsListState, {companyId: Number(companyId)});
+        getById("company", Number(companyId), setCompany);
     }, []);
 
     function registerUnit(){
-        setButtonLoading(true)
+        setButtonLoading(true);
         const promise = axios.post(API_URL+"/unit", newUnit)
         promise.then(res => {
             setButtonLoading(false)
@@ -34,11 +42,36 @@ export default function UnitsPage(){
         }).catch(() => setButtonLoading(false));
     };
 
+    function deleteCompany(){
+        const promise =  axios.delete(`${API_URL}/company/${companyId}`);
+        promise.then(() => navigate("/"));
+        promise.catch(err=>console.log(err));
+    };
+
+    function editCompany(){
+        setButtonLoading(true);
+        const promise = axios.put(API_URL+"/company", newCompany);
+        promise.then(()=> setButtonLoading(false))
+        .catch(() => setButtonLoading(false))
+    };
+
     return(
         <Container>
             <Header/>
             <main>
-            <h2>Register a company:</h2>
+            {company? <h1>{company.name}</h1> : <h1>loading</h1>}   
+            <h2>Edit company:</h2>
+            <div className="register">
+                <form onSubmit={() => editCompany()}>
+                        <input
+                            type="name"
+                            placeholder="changes company`s name"
+                            onChange={(e) => setNewCompany({...newCompany, name: e.target.value})}
+                        />
+                        <Button buttonLoading={buttonLoading} />
+                </form>
+            </div>
+            <h2>Register unit:</h2>
                 <div className="register">
                     <form onSubmit={() => registerUnit()}>
                         <input
@@ -51,6 +84,10 @@ export default function UnitsPage(){
                 </div>
             <h2>Registered units:</h2>
                 <UnitsList unitsListState={unitsListState} />
+                <div className="register">
+                <h2>DELETE COMPANY!</h2>
+                <button style={{background: "red"}} onClick={() => deleteCompany()}>DELETE</button>  
+            </div>    
             </main>
         </Container>
     )
@@ -71,19 +108,26 @@ const Container = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
+        h1{
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
     }
     .register{
         width: 500px;
         margin-bottom: 20px;
-        form{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            button{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        button{
                 width: 200px;
                 height: 30px;
                 margin-bottom: 5px;
             }
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             input{
                 height: 30px;
                 width: 500px;

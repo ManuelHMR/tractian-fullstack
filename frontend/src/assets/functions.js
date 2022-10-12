@@ -15,3 +15,9 @@ export function getUnits(setUnitsListState, data){
         setUnitsListState(res.data);
     }).catch(erro => console.log(erro));
 };
+
+export function getById(collection, documentId, setState){
+    const promise = axios.get(`${API_URL}/${collection}/${documentId}`);
+    promise.then(res => setState(res.data)).catch(erro => console.log(erro))
+    return
+};

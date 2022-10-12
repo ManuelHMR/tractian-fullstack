@@ -5,7 +5,7 @@ export default function Header(){
         <Container>
             <nav>
                 <a href="https://tractian.com/">
-                    <img src="https://lh6.googleusercontent.com/yCq1MQecmfRpyJFVF_5HJP4hDVSPiaUSly5ZKAhm1V9uRN43JYwdvVTlyYJzxLtr9zcGzLUOYohL0oxCqUTGytKKxBG26ocRfg9IMo6XwwjsSBmf-IJ7aE9YMarH1TT4EZJSSae_1hviehXuzO1oDm75sBRwKWtObHodbD45nMN-d5gi-w4QBNE=s800" alt="tractian"/>
+                    <img src="https://imgs.search.brave.com/XaEMGTtv-2cdZTOQAWigF9DE0REagptw4KjRfcOck0M/rs:fit:648:142:1/g:ce/aHR0cHM6Ly9yZXZp/c3RhbWFudXRlbmNh/by5jb20uYnIvaW1h/Z2Vucy9ldmVudG9z/L3RyYWN0aWFuLnBu/Zw" alt="tractian"/>
                 </a>
                 
 
@@ -27,7 +27,7 @@ const Container = styled.div`
     nav{
         width: 1000px;
         img{
-            height: 100px;
+            height: 80px;
         }
     }
 `

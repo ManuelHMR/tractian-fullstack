@@ -7,6 +7,12 @@ export async function createCompanyRepository ( name: string, companyId: number 
     return await companyCollection.insertOne(data);
 };
 
+export async function readCompanyByIdRepository( companyId : number ){
+    const database = await connectdb();
+    const companyCollection = database.collection("companyCollection");
+    return await companyCollection.findOne({companyId})
+};
+
 export async function readCompaniesRepository(){
     const database = await connectdb();
     const companyCollection = database.collection("companyCollection");
