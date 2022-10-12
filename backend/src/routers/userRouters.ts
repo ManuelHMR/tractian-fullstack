@@ -12,10 +12,10 @@ import { readUserByCompanySchema, readUserSchema, userSchema } from "../schemas/
 const userRouters = Router();
 
 userRouters.post("/user", validateSchema(userSchema), createUserController);
-userRouters.get("/user", validateSchema(readUserSchema), readUserController);
+userRouters.post("/users", validateSchema(readUserSchema), readUserController);
 // userRouters.put("/user", updateUserController);
 userRouters.delete("/user", validateSchema(readUserSchema), deleteUserController);
 
-userRouters.get("/users", validateSchema(readUserByCompanySchema), readUsersByCompanyController);
+userRouters.post("/companyusers", validateSchema(readUserByCompanySchema), readUsersByCompanyController);
 
 export default userRouters;

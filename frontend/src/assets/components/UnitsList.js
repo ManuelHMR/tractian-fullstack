@@ -1,22 +1,22 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export default function CompaniesList({companiesListState}){
+export default function UnitsList({unitsListState}){
     return(
         <Container>
             {
-            companiesListState.length > 0?
+            unitsListState.length > 0?
                 <div className="companies-box">
-                    {companiesListState.map((company, index) => (
-                        <Link  key={index} to={`company/${company.companyId}`}>
-                            <div className="box"> 
+                    {unitsListState.map((company, index) => (
+                        <Link key={index} to={`company/${company.companyId}`}>
+                            <div  className="box"> 
                                 <h2>{company.name}</h2>
                             </div>
                         </Link>
                     ))}
                 </div>
             :
-                <h3>No company registered</h3>
+                <h3>No unit registered</h3>
             }
         </Container>
     )

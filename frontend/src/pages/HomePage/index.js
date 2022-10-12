@@ -6,6 +6,7 @@ import { API_URL } from "../../assets/URL";
 import Header from "../../assets/components/Header";
 import CompaniesList from "../../assets/components/CompaniesList";
 import { getCompanies } from "../../assets/functions";
+import Button from "../../assets/components/Button";
 
 export default function HomePage (){
 
@@ -15,20 +16,10 @@ export default function HomePage (){
         name: ""
     });
 
+
     useEffect(()=> {
         getCompanies(setCompaniesListState);
     }, []);
-
-    function Button(){
-        return (
-            buttonLoading?
-                <button>
-                        <div className='loading' />
-                </button>   
-            :
-                <button id="button" type='submit'> REGISTER </button>
-        )
-    };
 
     function registerCompany(){
         setButtonLoading(true)
@@ -36,7 +27,8 @@ export default function HomePage (){
         promise.then(res => {
             setButtonLoading(false)
             setNewCompany("");
-        }).catch(erro => setButtonLoading(false));
+            setTimeout(getCompanies(setCompaniesListState), 5000);
+        }).catch(() => setButtonLoading(false));
     };
 
     return(
@@ -45,7 +37,7 @@ export default function HomePage (){
             <main>
                 <h2>Register a company:</h2>
                 <div className="register">
-                    <form onSubmit={() => registerCompany(newCompany, setNewCompany, setButtonLoading)}>
+                    <form onSubmit={() => registerCompany()}>
                         <input
                             type="name"
                             placeholder="company`s name"
@@ -55,7 +47,7 @@ export default function HomePage (){
                     </form>
                 </div>
                 <h2>Registered companies:</h2>
-                <CompaniesList companiesListState={companiesListState}/>
+                <CompaniesList companiesListState={companiesListState} />
             </main>
         </Conteiner>
     )
@@ -95,36 +87,6 @@ const Conteiner = styled.div`
                 margin-bottom: 10px;
                 margin-top: 10px;
             }
-        }
-    }
-    button{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 65px;
-            width: 500px;
-            background-color: lightblue;
-            border: none;
-            font-size: 15px;
-            color: #ffffff;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-    button:hover{
-        cursor: pointer;
-    }    
-    .loading {
-        animation: is-rotating 1s infinite;
-        width: 25px;
-        height: 25px;
-        border: 4px solid lightblue;
-        border-top-color: #ffffff;
-        border-radius: 50%;
-        margin: 15px;
-    }
-    @keyframes is-rotating {
-        to {
-            transform: rotate(1turn);
         }
     }
 `

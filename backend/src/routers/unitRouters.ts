@@ -7,7 +7,7 @@ import { createUnitSchema, deleteUnitSchema, readUnitSchema, updateUnitSchema } 
 const unitRouters = Router();
 
 unitRouters.post("/unit", validateSchema(createUnitSchema), createUnitController);
-unitRouters.get("/unit", validateSchema(readUnitSchema), readUnitsByCompanyController);
+unitRouters.post("/units", validateSchema(readUnitSchema), readUnitsByCompanyController);
 unitRouters.put("/unit", validateSchema(updateUnitSchema), updateUnitController);
 unitRouters.delete("/unit", validateSchema(deleteUnitSchema), deleteUnitController);
 

@@ -7,7 +7,7 @@ import { createAssetSchema, deleteAssetSchema, readAssetSchema, updateAssetSchem
 const assetRouters = Router();
 
 assetRouters.post("/asset", validateSchema(createAssetSchema), createAssetController);
-assetRouters.get("/asset", validateSchema(readAssetSchema), readAssetsByUnitController);
+assetRouters.post("/assets", validateSchema(readAssetSchema), readAssetsByUnitController);
 assetRouters.put("/asset", validateSchema(updateAssetSchema), updateAssetsController);
 assetRouters.delete("/asset", validateSchema(deleteAssetSchema), deleteAssetController);
 
